@@ -1,0 +1,32 @@
+{
+  "access_key_id":{
+    "label": "Access Key ID",
+    "type": "String",
+    "required": true,
+    "help": "Please provide your AWS Access Key ID."
+  },
+  "secret_access_key":{
+    "label": "Secret Access Key",
+    "type": "String",
+    "required": true,
+    "help": "Please provide your AWS Secret Access Key."
+  },
+  "region":{
+    "label": "Region",
+    "type": "String",
+    "required": true,
+    "help": "Please provide your AWS Region."
+  },
+  "api_version":{
+    "label": "API Version",
+    "type": "String",
+    "required": true,
+    "help": "Please provide your AWS API Version."
+  },
+  "delivery_stream_name":{
+    "label": "Delivery Stream Name",
+    "type": "String",
+    "required": true,
+    "help": "Please provide your AWS Firehose Delivery Stream Name."
+  }
+}
