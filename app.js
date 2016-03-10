@@ -2,33 +2,44 @@
 
 var platform = require('./platform'),
     isPlainObject = require('lodash.isplainobject'),
+    isArray = require('lodash.isarray'),
+    async = require('async'),
 	deliveryStreamName, firehoseClient;
+
+let sendData = (data) => {
+    firehoseClient.putRecord({
+        DeliveryStreamName: deliveryStreamName,
+        Record: {
+            Data: JSON.stringify(data)
+        }
+    }, function(error, response) {
+        if(error){
+            console.error(error);
+            platform.handleException(error);
+        }
+        else{
+            platform.log(JSON.stringify({
+                title: 'AWS Firehose record saved.',
+                data: {
+                    Data: data,
+                    DeliveryStreamName: deliveryStreamName
+                }
+            }));
+        }
+    });
+};
 
 platform.on('data', function (data) {
     if(isPlainObject(data)){
-        firehoseClient.putRecord({
-            DeliveryStreamName: deliveryStreamName,
-            Record: {
-                Data: JSON.stringify(data)
-            }
-        }, function(error, response) {
-            if(error){
-                console.error(error);
-                platform.handleException(error);
-            }
-            else{
-                platform.log(JSON.stringify({
-                    title: 'AWS Firehose record saved.',
-                    data: {
-                        Data: data,
-                        DeliveryStreamName: deliveryStreamName
-                    }
-                }));
-            }
+        sendData(data);
+    }
+    else if(isArray(data)){
+        async.each(data, (datum) => {
+            sendData(datum);
         });
     }
     else
-        platform.handleException(new Error('Invalid data received. Must be a valid JSON Object. Data ' + data));
+        platform.handleException(new Error('Invalid data received. Must be a valid Array/JSON Object. Data ' + data));
 });
 
 platform.once('close', function () {
