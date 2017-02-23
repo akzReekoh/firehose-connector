@@ -1,32 +1,37 @@
 {
-  "access_key_id":{
+  "accessKeyId":{
     "label": "Access Key ID",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS Access Key ID."
+    "help": "Please provide your AWS Access Key ID.",
+    "maxLength": 50
   },
-  "secret_access_key":{
+  "secretAccessKey":{
     "label": "Secret Access Key",
     "type": "Password",
     "required": true,
-    "help": "Please provide your AWS Secret Access Key."
+    "help": "Please provide your AWS Secret Access Key.",
+    "maxLength": 50
   },
   "region":{
     "label": "Region",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS Region."
+    "help": "Please provide your AWS Region.",
+    "maxLength": 50
   },
-  "api_version":{
+  "apiVersion":{
     "label": "API Version",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS API Version."
+    "help": "Please provide your AWS API Version.",
+    "maxLength": 50
   },
-  "delivery_stream_name":{
+  "deliveryStreamName":{
     "label": "Delivery Stream Name",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS Firehose Delivery Stream Name."
+    "help": "Please provide your AWS Firehose Delivery Stream Name.",
+    "maxLength": 50
   }
 }
